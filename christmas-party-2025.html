@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Potluck Party</title>
+    <style>
+        :root {
+            --christmas-red: #D42426;
+            --christmas-green: #165B33;
+            --gold: #F8B229;
+            --cream: #F0F0F0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream);
+            margin: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: var(--christmas-red);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-bottom: 5px solid var(--gold);
+        }
+        h1 { margin: 0; font-size: 2.5rem; }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Sections */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .info-box {
+            background-color: #e8f5e9; /* Light Green */
+            border-left: 5px solid var(--christmas-green);
+            padding: 15px;
+        }
+
+        /* Supplies Dashboard */
+        .supplies-grid {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .supply-item { font-size: 1.2rem; }
+        .status-yes { color: var(--christmas-green); font-weight: bold; }
+        .status-no { color: var(--christmas-red); font-weight: bold; }
+
+        /* Guest Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th { background-color: var(--christmas-green); color: white; text-align: left; padding: 10px; }
+        td { border-bottom: 1px solid #ddd; padding: 10px; }
+        
+        /* Hosts Profile */
+        .hosts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            text-align: center;
+        }
+        .host-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 auto 10px;
+            object-fit: cover;
+            border: 3px solid var(--gold);
+        }
+
+        /* Map */
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        /* RSVP Button */
+        .rsvp-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--christmas-green);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .rsvp-btn:hover { background-color: #0f4124; }
+        
+        #loading { text-align: center; font-style: italic; color: #666; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎄 Christmas Potluck 🎄</h1>
+    <p>Eat, Drink, and Be Merry!</p>
+</header>
+
+<div class="container">
+
+    <!-- HOST INFO BOX -->
+    <div class="card info-box">
+        <h3>📢 Host Announcement</h3>
+        <p id="host-message">Loading updates...</p>
+    </div>
+
+    <!-- LOCATION & MAP -->
+    <div class="card">
+        <h2>📍 Location</h2>
+        <p><strong>Address:</strong> 123 Candy Cane Lane, North Pole, 99705</p>
+        <div class="map-container">
+            <!-- Replace the 'src' below with your actual Google Maps Embed Link -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1622568000000!5m2!1sen!2sus" 
+                allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <!-- HOST PROFILES -->
+    <div class="card">
+        <h2>🎅 Your Hosts</h2>
+        <div class="hosts-grid">
+            <div>
+                <img src="https://via.placeholder.com/100" class="host-img" alt="Host 1">
+                <h3>Mary Claus</h3>
+                <p>Hostess</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/100" class="host-img" alt="Host 2">
+                <h3>Nick Claus</h3>
+                <p>BBQ Master</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/100" class="host-img" alt="Host 3">
+                <h3>Buddy Elf</h3>
+                <p>Decorations</p>
+            </div>
+            <div>
+                <img src="https://via.placeholder.com/100" class="host-img" alt="Host 4">
+                <h3>Jack Frost</h3>
+                <p>Drinks</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUPPLY CHECKLIST -->
+    <div class="card">
+        <h2>🍽️ Supply Status</h2>
+        <p><em>If you see a Red X, please consider bringing some!</em></p>
+        <div class="supplies-grid">
+            <div class="supply-item">
+                <div>🍴 Cutlery</div>
+                <div id="status-cutlery">...</div>
+            </div>
+            <div class="supply-item">
+                <div>🍽️ Paper Plates</div>
+                <div id="status-plates">...</div>
+            </div>
+            <div class="supply-item">
+                <div>🧻 Napkins</div>
+                <div id="status-napkins">...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GUEST LIST -->
+    <div class="card">
+        <h2>🍲 The Menu & Guests</h2>
+        <p>Total Headcount: <strong id="total-count">0</strong></p>
+        <div id="loading">Loading guest list from North Pole...</div>
+        <table id="guest-table" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Dish</th>
+                    <th>Party Size</th>
+                </tr>
+            </thead>
+            <tbody id="guest-list-body">
+                <!-- Data inserted here by JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- RSVP ACTION -->
+    <a href="https://forms.gle/dNARaDfoGqSSp2Yb9" target="_blank" class="rsvp-btn">📝 RSVP Here & Add Your Dish</a>
+
+</div>
+
+<script>
+    // PASTE YOUR WEB APP URL FROM GOOGLE APPS SCRIPT HERE
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKS2uMC71KaQw_TtArphwYpS5PnEQdop4Xu2HegEERDp7YZ3hvkwHMpJT-gcq-npJg/exec';
+
+    async function loadPartyData() {
+        try {
+            const response = await fetch(SCRIPT_URL);
+            const data = await response.json();
+
+            // 1. Update Settings/Info
+            document.getElementById('host-message').innerText = data.settings.message;
+            updateStatus('status-cutlery', data.settings.cutlery);
+            updateStatus('status-plates', data.settings.plates);
+            updateStatus('status-napkins', data.settings.napkins);
+
+            // 2. Update Guest List
+            const tbody = document.getElementById('guest-list-body');
+            let totalGuests = 0;
+
+            data.guests.forEach(guest => {
+                const row = `<tr>
+                    <td>${guest.name}</td>
+                    <td>${guest.dish}</td>
+                    <td>${guest.count}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+                totalGuests += parseInt(guest.count) || 0;
+            });
+
+            document.getElementById('total-count').innerText = totalGuests;
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('guest-table').style.display = 'table';
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            document.getElementById('host-message').innerText = "Error loading data. Please refresh.";
+        }
+    }
+
+    function updateStatus(elementId, value) {
+        const el = document.getElementById(elementId);
+        // Check if value represents "Yes" (case insensitive)
+        if (String(value).toLowerCase() === 'yes') {
+            el.innerHTML = "✅ Available";
+            el.className = "status-yes";
+        } else {
+            el.innerHTML = "❌ Needed";
+            el.className = "status-no";
+        }
+    }
+
+    // Run on load
+    loadPartyData();
+</script>
+
+</body>
+</html>
